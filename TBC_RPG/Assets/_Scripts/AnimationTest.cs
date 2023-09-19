@@ -5,7 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class AnimationTest : MonoBehaviour
 {
-    [SerializeField] Animator anim;
+    [SerializeField] Animator playerAnim;
+    [SerializeField] Animator enemyAnim;
 
     private void Update()
     {
@@ -16,19 +17,45 @@ public class AnimationTest : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            anim.Play("Idle");
+            playerAnim.Play("Idle");
         }
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            anim.Play("Slash");
+            playerAnim.Play("Slash");
         }
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            anim.Play("Crash");
+            playerAnim.Play("Crash");
         }
         if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            anim.Play("Kick");
+            playerAnim.Play("Kick");
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha5))
+        {
+            playerAnim.Play("Damaged");
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.Alpha0))
+        {
+            enemyAnim.Play("Death");
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha9))
+        {
+            enemyAnim.Play("Punch");
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha8))
+        {
+            enemyAnim.Play("Scream");
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha7))
+        {
+            enemyAnim.Play("Idle");
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha6))
+        {
+            enemyAnim.Play("Damaged");
         }
     }
 }
