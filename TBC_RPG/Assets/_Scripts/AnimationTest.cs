@@ -13,6 +13,12 @@ public class AnimationTest : MonoBehaviour
         CheckForInput();
     }
 
+    public void DoDamage()
+    {
+        Health enemyHealth = enemyAnim?.GetComponentInParent<Health>();
+        enemyHealth.ChangeHealth(-55f);
+    }
+
     void CheckForInput()
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
