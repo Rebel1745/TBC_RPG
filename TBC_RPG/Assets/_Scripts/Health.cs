@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] PopupNumbers pn;
+    [SerializeField] Slider healthBar;
 
     [SerializeField] float startingHealth = 100f;
     float currentHealth;
@@ -17,7 +19,10 @@ public class Health : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+
         currentHealth = startingHealth;
+        healthBar.maxValue = startingHealth;
+        healthBar.value = currentHealth;
     }
 
     public void ChangeHealth(float amount, bool isPercentageChange = false)
@@ -34,6 +39,8 @@ public class Health : MonoBehaviour
         }
 
         currentHealth += change;
+
+        healthBar.value = currentHealth;
 
         if(currentHealth <= 0f)
         {
