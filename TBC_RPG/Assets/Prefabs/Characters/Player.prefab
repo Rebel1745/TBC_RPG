@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pn: {fileID: 146451169854004168}
+  healthBar: {fileID: 0}
   startingHealth: 100
   damageAnimation: Damaged
   deathAnimation: Death
@@ -294,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 397150117162665386}
   - component: {fileID: 146451170147088890}
-  - component: {fileID: 1065423752202559249}
+  - component: {fileID: 2859872982076606106}
   m_Layer: 0
   m_Name: Maria WProp J J Ong
   m_TagString: Untagged
@@ -341,7 +342,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1065423752202559249
+--- !u!114 &2859872982076606106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -350,11 +351,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1065423752202559248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f7f7e63ebf2544e9cc58cab37784bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 97827d1b3c07e7a4ca13082b096f3252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnim: {fileID: 146451170147088890}
-  enemyAnim: {fileID: 0}
 --- !u!1 &1197181073427158444
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,67 +1,121 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(Animator))]
 public class AnimationTest : MonoBehaviour
 {
+    public static AnimationTest instance;
+
     [SerializeField] Animator playerAnim;
     [SerializeField] Animator enemyAnim;
 
+    [SerializeField] Canvas attackParentCanvas;
+    [SerializeField] GameObject basicAttackPrefab;
+    [SerializeField] GameObject comboAttack1Prefab;
+    [SerializeField] GameObject comboAttack2Prefab;
+    [SerializeField] GameObject comboAttack3Prefab;
+    [SerializeField] GameObject comboAttack4Prefab;
+    [SerializeField] GameObject matchAttackPrefab;
+    [SerializeField] GameObject alternateAttackPrefab;
+
+    bool canAttack = true;
+    Animator animToUse;
+    string animToPlay;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Update()
     {
-        CheckForInput();
+        if(canAttack)
+            CheckForInput();
+    }
+
+    public void AttackAgain()
+    {
+        canAttack = true;
+        animToUse.Play(animToPlay);
     }
 
     public void DoDamage()
     {
-        Health enemyHealth = enemyAnim?.GetComponentInParent<Health>();
-        enemyHealth.ChangeHealth(-55f);
+        enemyAnim?.GetComponentInParent<Health>().ChangeHealth(-55f);
     }
 
     void CheckForInput()
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            playerAnim.Play("Idle");
+            canAttack = false;
+            Instantiate(basicAttackPrefab, attackParentCanvas.transform);
+            animToUse = playerAnim;
+            animToPlay = "Slash";
+            //playerAnim.Play("Idle");
         }
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            playerAnim.Play("Slash");
+            canAttack = false;
+            Instantiate(comboAttack1Prefab, attackParentCanvas.transform);
+            animToUse = playerAnim;
+            animToPlay = "Slash";
+            //playerAnim.Play("Slash");
         }
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            playerAnim.Play("Crash");
+            canAttack = false;
+            Instantiate(comboAttack2Prefab, attackParentCanvas.transform);
+            animToUse = playerAnim;
+            animToPlay = "Crash";
+            //playerAnim.Play("Crash");
         }
         if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            playerAnim.Play("Kick");
+            canAttack = false;
+            Instantiate(comboAttack3Prefab, attackParentCanvas.transform);
+            animToUse = playerAnim;
+            animToPlay = "Kick";
+            //playerAnim.Play("Kick");
         }
         if (Input.GetKeyUp(KeyCode.Alpha5))
         {
-            playerAnim.Play("Damaged");
+            canAttack = false;
+            Instantiate(comboAttack4Prefab, attackParentCanvas.transform);
+            animToUse = playerAnim;
+            animToPlay = "Damaged";
+            //playerAnim.Play("Damaged");
         }
 
 
         if (Input.GetKeyUp(KeyCode.Alpha0))
         {
-            enemyAnim.Play("Death");
+            //enemyAnim.Play("Death");
         }
         if (Input.GetKeyUp(KeyCode.Alpha9))
         {
-            enemyAnim.Play("Punch");
+            //enemyAnim.Play("Punch");
         }
         if (Input.GetKeyUp(KeyCode.Alpha8))
         {
-            enemyAnim.Play("Scream");
+            //enemyAnim.Play("Scream");
         }
         if (Input.GetKeyUp(KeyCode.Alpha7))
         {
-            enemyAnim.Play("Idle");
+            canAttack = false;
+            Instantiate(alternateAttackPrefab, attackParentCanvas.transform);
+            animToUse = enemyAnim;
+            animToPlay = "Punch";
+            //enemyAnim.Play("Idle");
         }
         if (Input.GetKeyUp(KeyCode.Alpha6))
         {
-            enemyAnim.Play("Damaged");
+            canAttack = false;
+            Instantiate(matchAttackPrefab, attackParentCanvas.transform);
+            animToUse = enemyAnim;
+            animToPlay = "Death";
+            //enemyAnim.Play("Damaged");
         }
     }
 }
