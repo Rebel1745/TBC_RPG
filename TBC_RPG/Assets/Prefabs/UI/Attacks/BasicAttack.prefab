@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 224086961980671702}
   - component: {fileID: 222307792468104808}
   - component: {fileID: 114744031364027324}
+  - component: {fileID: 9053343630449724742}
   m_Layer: 5
   m_Name: BasicAttack
   m_TagString: Move
@@ -387,6 +388,77 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9053343630449724742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497792851114160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32fe6503e866474fbb3e24026fe6c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swingMeter: {fileID: 114794559649011022}
+  meterImage: {fileID: 2800000, guid: 9281f737006107748b97fcc6c5c07b24, type: 3}
+  IAStartSwinging:
+    m_Name: IA Start Swinging
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 309db4f2-8e25-4f0e-85be-55c4d56763e2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3bd53f4f-197c-4c20-8f51-53f3cb076405
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: IA Start Swinging
+      m_Flags: 0
+    m_Flags: 0
+  IAAnyKeyPressed:
+    m_Name: IA Any Key Pressed
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a7a99fe2-5baf-4931-9b40-134dc9d604d2
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 2e5c8b33-37b3-4587-8044-ab4dd201628a
+      m_Path: <Keyboard>/anyKey
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: IA Any Key Pressed
+      m_Flags: 0
+    m_Flags: 0
+  canPress: 1
+  pressAgainThreshold: 0
+  nextPressThreshold: 0
+  meterSpeed: 20
+  noOfSwings: 1
+  swingNo: 0
+  keysToPressRandom: 1
+  keysToPress: []
+  possibleKeys:
+  - 1
+  - 2
+  - 3
+  - 4
+  panelColor: {r: 0, g: 0, b: 0, a: 0}
+  keyPressed: 
+  keysToPressText:
+  - {fileID: 114556985946913848}
+  keysToPressPanels:
+  - {fileID: 224601189852812264}
+  keysToPressPanelSpawns:
+  - {fileID: 224621076566904960}
+  currentPanel: {fileID: 0}
+  currentPanelSpawn: {fileID: 0}
 --- !u!1 &1602066567306472
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +469,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224484288334972146}
   - component: {fileID: 114794559649011022}
-  - component: {fileID: 114067537907589498}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -481,44 +552,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &114067537907589498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1602066567306472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32fe6503e866474fbb3e24026fe6c2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swingMeter: {fileID: 114794559649011022}
-  meterImage: {fileID: 2800000, guid: 9281f737006107748b97fcc6c5c07b24, type: 3}
-  isSwinging: 0
-  canPress: 1
-  pressAgainThreshold: 0
-  nextPressThreshold: 0
-  meterSpeed: 20
-  noOfSwings: 1
-  swingNo: 0
-  keysToPressRandom: 1
-  keysToPress: []
-  possibleKeys:
-  - 1
-  - 2
-  - 3
-  - 4
-  panelColor: {r: 0, g: 0, b: 0, a: 0}
-  keyPressed: 
-  keysToPressText:
-  - {fileID: 114556985946913848}
-  keysToPressPanels:
-  - {fileID: 224601189852812264}
-  keysToPressPanelSpawns:
-  - {fileID: 224621076566904960}
-  currentPanel: {fileID: 0}
-  currentPanelSpawn: {fileID: 0}
 --- !u!1 &1773490882388824
 GameObject:
   m_ObjectHideFlags: 0

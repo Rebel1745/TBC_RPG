@@ -12,12 +12,12 @@ public class AnimationTest : MonoBehaviour
 
     [SerializeField] Canvas attackParentCanvas;
     [SerializeField] GameObject basicAttackPrefab;
-    [SerializeField] GameObject comboAttack1Prefab;
     [SerializeField] GameObject comboAttack2Prefab;
     [SerializeField] GameObject comboAttack3Prefab;
     [SerializeField] GameObject comboAttack4Prefab;
+    [SerializeField] GameObject comboAttack5Prefab;
     [SerializeField] GameObject matchAttackPrefab;
-    [SerializeField] GameObject alternateAttackPrefab;
+    [SerializeField] GameObject mashAttackPrefab;
 
     bool canAttack = true;
     Animator animToUse;
@@ -28,16 +28,81 @@ public class AnimationTest : MonoBehaviour
         instance = this;
     }
 
-    private void Update()
+    /*private void Update()
     {
         if(canAttack)
             CheckForInput();
+    }*/
+
+    public void SetupAttack(string attackType)
+    {
+        if (!canAttack)
+            return;
+
+        GameObject prefabToUse = null;
+
+        switch (attackType)
+        {
+            case "basic":
+                prefabToUse = basicAttackPrefab;
+                animToUse = playerAnim;
+                animToPlay = "Slash";
+                break;
+            case "combo2":
+                prefabToUse = comboAttack2Prefab;
+                animToUse = playerAnim;
+                animToPlay = "Crash";
+                break;
+            case "combo3":
+                prefabToUse = comboAttack3Prefab;
+                animToUse = playerAnim;
+                animToPlay = "Kick";
+                break;
+            case "combo4":
+                prefabToUse = comboAttack4Prefab;
+                animToUse = playerAnim;
+                animToPlay = "Slash";
+                break;
+            case "combo5":
+                prefabToUse = comboAttack5Prefab;
+                animToUse = playerAnim;
+                animToPlay = "Crash";
+                break;
+            case "match":
+                prefabToUse = matchAttackPrefab;
+                animToUse = playerAnim;
+                animToPlay = "Kick";
+                break;
+            case "mash":
+                prefabToUse = mashAttackPrefab;
+                animToUse = playerAnim;
+                animToPlay = "Slash";
+                break;
+        }
+
+        PerformAttack(prefabToUse, animToUse, animToPlay);
+    }
+
+    void PerformAttack(GameObject attackPrefab, Animator animator, string animation)
+    {
+        if (!attackPrefab)
+            Debug.LogError("AnimationTest-PerformAttck: No attack prefab recieved");
+
+        canAttack = false;
+        Instantiate(attackPrefab, attackParentCanvas.transform);
+        animToUse = animator;
+        animToPlay = animation;
+        UIManager.instance.ShowHideInfoBar(false);
+        UIManager.instance.ShowHideAttackList(false);
     }
 
     public void AttackAgain()
     {
         canAttack = true;
         animToUse.Play(animToPlay);
+        UIManager.instance.ShowHideInfoBar(true);
+        UIManager.instance.ShowHideAttackList(true);
+        UIManager.instance.SetInfoBarText("Time to attack again");
     }
 
     public void DoDamage()
@@ -45,7 +110,7 @@ public class AnimationTest : MonoBehaviour
         enemyAnim?.GetComponentInParent<Health>().ChangeHealth(-55f);
     }
 
-    void CheckForInput()
+    /*void CheckForInput()
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
@@ -117,5 +182,5 @@ public class AnimationTest : MonoBehaviour
             animToPlay = "Death";
             //enemyAnim.Play("Damaged");
         }
-    }
+    }*/
 }
