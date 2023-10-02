@@ -581,7 +581,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
-  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -655,28 +654,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 19.25, y: 0, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f7f7e63ebf2544e9cc58cab37784bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAnim: {fileID: 1360558426}
-  enemyAnim: {fileID: 779155632}
-  attackParentCanvas: {fileID: 275395426}
-  basicAttackPrefab: {fileID: 1497792851114160, guid: 88818d4a315325d408ddb02ed3aee54d, type: 3}
-  comboAttack2Prefab: {fileID: 1739867893971094, guid: 4f47a3207cb98ad48b1eecc25b540cde, type: 3}
-  comboAttack3Prefab: {fileID: 1548032006213892, guid: 834ead5c632e6e14288864b2081cae22, type: 3}
-  comboAttack4Prefab: {fileID: 1406261368000268, guid: ef972474c2510da49b1b64d7800213b1, type: 3}
-  comboAttack5Prefab: {fileID: 1417682585369608, guid: ad9599f24bafa814aac0f2b64b4353cc, type: 3}
-  matchAttackPrefab: {fileID: 1158246331073994, guid: da9bdfc81edc21446bccd08cb46bd614, type: 3}
-  mashAttackPrefab: {fileID: 1998242240576286, guid: 576bfaa44e478ae41b74804dcffbe9cf, type: 3}
 --- !u!114 &1054454810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 698602222655539803, guid: 87f3b1547a4ba2e4ba42c3e8fb5115a5, type: 3}
@@ -740,18 +717,12 @@ MonoBehaviour:
   infoBar: {fileID: 2057337859}
   infoBarText: {fileID: 1054454810}
   attackList: {fileID: 960476106}
---- !u!1 &2049523623 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 146451169854004172, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+--- !u!114 &2049523630 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
   m_PrefabInstance: {fileID: 146451170103822278}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2049523625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2049523623}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fd6631d3d54ca74b8cfd98ba166b683, type: 3}
@@ -821,6 +792,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 1360558426}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: mashAttackPrefab
+      value: 
+      objectReference: {fileID: 1998242240576286, guid: 576bfaa44e478ae41b74804dcffbe9cf, type: 3}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: basicAttackPrefab
+      value: 
+      objectReference: {fileID: 1497792851114160, guid: 88818d4a315325d408ddb02ed3aee54d, type: 3}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: matchAttackPrefab
+      value: 
+      objectReference: {fileID: 1158246331073994, guid: da9bdfc81edc21446bccd08cb46bd614, type: 3}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: attackParentCanvas
+      value: 
+      objectReference: {fileID: 275395426}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: comboAttack2Prefab
+      value: 
+      objectReference: {fileID: 1739867893971094, guid: 4f47a3207cb98ad48b1eecc25b540cde, type: 3}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: comboAttack3Prefab
+      value: 
+      objectReference: {fileID: 1548032006213892, guid: 834ead5c632e6e14288864b2081cae22, type: 3}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: comboAttack4Prefab
+      value: 
+      objectReference: {fileID: 1406261368000268, guid: ef972474c2510da49b1b64d7800213b1, type: 3}
+    - target: {fileID: 848074154490792878, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+      propertyPath: comboAttack5Prefab
+      value: 
+      objectReference: {fileID: 1417682585369608, guid: ad9599f24bafa814aac0f2b64b4353cc, type: 3}
     - target: {fileID: 1065423752202559249, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
       propertyPath: enemyAnim
       value: 
@@ -903,6 +910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1065423752202559249, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
+    - {fileID: 146451169854004171, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7eafc866b8195bf469fee97ccad6072d, type: 3}
 --- !u!1001 &1568705690685517849
 PrefabInstance:
@@ -1006,7 +1014,7 @@ PrefabInstance:
     - target: {fileID: 1815692175080811490, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 963194229}
+      objectReference: {fileID: 2049523630}
     - target: {fileID: 1815692175080811490, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1017,7 +1025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1815692175080811490, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationTest, Assembly-CSharp
+      value: AttackController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1815692175080811490, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1038,7 +1046,7 @@ PrefabInstance:
     - target: {fileID: 2406236083934090282, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 963194229}
+      objectReference: {fileID: 2049523630}
     - target: {fileID: 2406236083934090282, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1049,7 +1057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2406236083934090282, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationTest, Assembly-CSharp
+      value: AttackController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2406236083934090282, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1070,7 +1078,7 @@ PrefabInstance:
     - target: {fileID: 3029441388984584596, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 963194229}
+      objectReference: {fileID: 2049523630}
     - target: {fileID: 3029441388984584596, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1081,7 +1089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3029441388984584596, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationTest, Assembly-CSharp
+      value: AttackController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3029441388984584596, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1110,7 +1118,7 @@ PrefabInstance:
     - target: {fileID: 6165324585391017757, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 963194229}
+      objectReference: {fileID: 2049523630}
     - target: {fileID: 6165324585391017757, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1121,7 +1129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6165324585391017757, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationTest, Assembly-CSharp
+      value: AttackController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6165324585391017757, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1142,7 +1150,7 @@ PrefabInstance:
     - target: {fileID: 7223926527559348257, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 963194229}
+      objectReference: {fileID: 2049523630}
     - target: {fileID: 7223926527559348257, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1153,7 +1161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7223926527559348257, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationTest, Assembly-CSharp
+      value: AttackController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7223926527559348257, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1174,7 +1182,7 @@ PrefabInstance:
     - target: {fileID: 7647476097703823605, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 963194229}
+      objectReference: {fileID: 2049523630}
     - target: {fileID: 7647476097703823605, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1185,7 +1193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7647476097703823605, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationTest, Assembly-CSharp
+      value: AttackController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7647476097703823605, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1206,7 +1214,7 @@ PrefabInstance:
     - target: {fileID: 8713676791291917641, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 963194229}
+      objectReference: {fileID: 2049523630}
     - target: {fileID: 8713676791291917641, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1217,7 +1225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8713676791291917641, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AnimationTest, Assembly-CSharp
+      value: AttackController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8713676791291917641, guid: 53eaa87dd1733814f970ecd4cd00934b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument

@@ -63,9 +63,9 @@ public class SwingMeterMatch : SwingMeter {
         {
             // Check the color of the image corresponding with the position on the image the swing meter stopped on
             Color stoppingColor = GetColorAtStoppingPoint(swingMeter.value);
-            string hitType = CheckHitType(stoppingColor, keysToPressPanels[0], missed);
+            DAMAGE_TYPE hitType = CheckHitType(stoppingColor, keysToPressPanels[0], missed);
 
-            // TODO: Damage
+            HitsDamage[0] = new Damage { DamageType = hitType };
 
             isSwinging = false;
             swingMeter.value = swingMeter.minValue;
@@ -87,32 +87,37 @@ public class SwingMeterMatch : SwingMeter {
         }
     }
 
-    string CheckHitType(Color stoppingColor, Transform panel, bool missed)
+    DAMAGE_TYPE CheckHitType(Color stoppingColor, Transform panel, bool missed)
     {
-        string textToAdd = "";
+        DAMAGE_TYPE dt = DAMAGE_TYPE.Miss;
+        //string textToAdd = "";
         if (!missed)
         {
             if (stoppingColor.g == 1f)
             {
-                textToAdd = "crit";
+                dt = DAMAGE_TYPE.Critical;
+                //textToAdd = "crit";
             }
             else if (stoppingColor.b == 1f)
             {
-                textToAdd = "normal";
+                dt = DAMAGE_TYPE.Normal;
+                //textToAdd = "normal";
             }
             else if (stoppingColor.r == 1f)
             {
-                textToAdd = "weak";
+                dt = DAMAGE_TYPE.Weak;
+                //textToAdd = "weak";
             }
             panel.gameObject.GetComponent<Image>().color = stoppingColor;
         }
         else
         {
             panel.gameObject.GetComponent<Image>().color = Color.black;
-            textToAdd = "miss";
+            dt = DAMAGE_TYPE.Miss;
+            // textToAdd = "miss";
         }
 
-        return textToAdd;
+        return dt;
     }
 
     public override void InitialiseKeys()

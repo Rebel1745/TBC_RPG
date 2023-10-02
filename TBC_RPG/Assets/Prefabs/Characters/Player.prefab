@@ -41,9 +41,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 146451169854004173}
-  - component: {fileID: 146451169854004171}
   - component: {fileID: 146451169854004170}
   - component: {fileID: 146451169854004168}
+  - component: {fileID: 848074154490792878}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -69,27 +69,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &146451169854004171
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 146451169854004172}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &146451169854004170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +104,26 @@ MonoBehaviour:
   MaxRandomXOffset: 0.5
   MaxRandomYOffset: 0
   MaxRandomZOffset: 0
+--- !u!114 &848074154490792878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146451169854004172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd6631d3d54ca74b8cfd98ba166b683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicAttackPrefab: {fileID: 1497792851114160, guid: 88818d4a315325d408ddb02ed3aee54d, type: 3}
+  comboAttack2Prefab: {fileID: 1739867893971094, guid: 4f47a3207cb98ad48b1eecc25b540cde, type: 3}
+  comboAttack3Prefab: {fileID: 1548032006213892, guid: 834ead5c632e6e14288864b2081cae22, type: 3}
+  comboAttack4Prefab: {fileID: 1406261368000268, guid: ef972474c2510da49b1b64d7800213b1, type: 3}
+  comboAttack5Prefab: {fileID: 1417682585369608, guid: ad9599f24bafa814aac0f2b64b4353cc, type: 3}
+  matchAttackPrefab: {fileID: 1158246331073994, guid: da9bdfc81edc21446bccd08cb46bd614, type: 3}
+  mashAttackPrefab: {fileID: 1998242240576286, guid: 576bfaa44e478ae41b74804dcffbe9cf, type: 3}
+  anim: {fileID: 146451170147088890}
 --- !u!1 &146451170273510345
 GameObject:
   m_ObjectHideFlags: 0

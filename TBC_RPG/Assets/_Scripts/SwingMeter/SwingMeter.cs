@@ -8,6 +8,10 @@ public class SwingMeter : MonoBehaviour {
     public Slider swingMeter;
     public Texture2D meterImage;
 
+    public GameObject Swinger;
+
+    public Damage[] HitsDamage;
+
     protected bool isSwinging = false;
 
     public bool canPress = true;
@@ -40,6 +44,7 @@ public class SwingMeter : MonoBehaviour {
     void Start ()
     {
         InitialiseKeys();
+        HitsDamage = new Damage[noOfSwings];
     }
 
     public void StartSwinging()
@@ -106,9 +111,9 @@ public class SwingMeter : MonoBehaviour {
     {
         //MoveListController mlc = FindObjectOfType<MoveListController>();
         //mlc.Cancel();
-
-        // TESTING ONLY
-        AnimationTest.instance.AttackAgain();
+        AttackController ac = Swinger.GetComponentInChildren<AttackController>();
+        ac.AttackAgain();
+        ac.DoDamage(HitsDamage);
 
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Move");
         foreach (GameObject go in gos)

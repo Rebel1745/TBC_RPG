@@ -101,9 +101,9 @@ public class SwingMeterCombo : SwingMeter {
 
         // Check the color of the image corresponding with the position on the image the swing meter stopped on
         Color stoppingColor = GetColorAtStoppingPoint(swingMeter.value);
-        string hitType = CheckHitType(stoppingColor, currentPanel);
-        
-        // TODO: Damage
+        DAMAGE_TYPE hitType = CheckHitType(stoppingColor, currentPanel);
+
+        HitsDamage[swingNo-1] = new Damage { DamageType = hitType };
 
         currentPanel = null;
         currentPanelSpawn = null;
@@ -119,9 +119,12 @@ public class SwingMeterCombo : SwingMeter {
         
     }
 
-    string CheckHitType(Color stoppingColor, Transform panel)
+    DAMAGE_TYPE CheckHitType(Color stoppingColor, Transform panel)
     {
-        string textToAdd = stoppingColor.ToString();
+        DAMAGE_TYPE dt = DAMAGE_TYPE.Miss;
+
+        // textToAdd not used since DAMAGE_TYPE has been implemented
+        //string textToAdd = stoppingColor.ToString();
         bool wrongButton = false;
         if (swingNo > 0)
         {
@@ -130,11 +133,13 @@ public class SwingMeterCombo : SwingMeter {
                 // CRIT BABY!
                 if (keyPressed == keysToPress[swingNo - 1])
                 {
-                    textToAdd = "crit";
+                    dt = DAMAGE_TYPE.Critical;
+                    //textToAdd = "crit";
                 }
                 else
                 {
-                    textToAdd = "miss";
+                    dt = DAMAGE_TYPE.Miss;
+                    //textToAdd = "miss";
                     wrongButton = true;
                     swingNo = noOfSwings;
                 }
@@ -143,11 +148,13 @@ public class SwingMeterCombo : SwingMeter {
             {
                 if (keyPressed == keysToPress[swingNo - 1])
                 {
-                    textToAdd = "normal";
+                    dt = DAMAGE_TYPE.Normal;
+                    //textToAdd = "normal";
                 }
                 else
                 {
-                    textToAdd = "miss";
+                    dt = DAMAGE_TYPE.Miss;
+                    //textToAdd = "miss";
                     wrongButton = true;
                     swingNo = noOfSwings;
                 }
@@ -156,11 +163,13 @@ public class SwingMeterCombo : SwingMeter {
             {
                 if (keyPressed == keysToPress[swingNo - 1])
                 {
-                    textToAdd = "weak";
+                    dt = DAMAGE_TYPE.Weak;
+                    //textToAdd = "weak";
                 }
                 else
                 {
-                    textToAdd = "miss";
+                    dt = DAMAGE_TYPE.Miss;
+                    //textToAdd = "miss";
                     wrongButton = true;
                     swingNo = noOfSwings;
                 }
@@ -179,9 +188,10 @@ public class SwingMeterCombo : SwingMeter {
         else
         {
             panel.gameObject.GetComponent<Image>().color = Color.black;
-            textToAdd = "miss";
+            dt = DAMAGE_TYPE.Miss;
+            //textToAdd = "miss";
         }
 
-        return textToAdd;
+        return dt;
     }
 }

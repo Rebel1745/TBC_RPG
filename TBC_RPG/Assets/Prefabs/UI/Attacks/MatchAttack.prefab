@@ -130,45 +130,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingMeter: {fileID: 114335357000824474}
   meterImage: {fileID: 2800000, guid: 54c62f006f7d7434198424bb49f4514a, type: 3}
-  IAStartSwinging:
-    m_Name: IA Start Swinging
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 8703a682-a64f-4331-a02b-7b0ca76398d6
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 2db7b436-0a01-4338-bf0d-1b1670c873d1
-      m_Path: <Keyboard>/space
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: IA Start Swinging
-      m_Flags: 0
-    m_Flags: 0
-  IAAnyKeyPressed:
-    m_Name: IA Any Key Pressed
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 29a25a2d-ad3e-4e6e-a6e5-8533f4156a04
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: d654e699-1b4e-4820-b403-13fbf6fe002f
-      m_Path: <Keyboard>/anyKey
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: IA Any Key Pressed
-      m_Flags: 0
-    m_Flags: 0
+  Swinger: {fileID: 0}
   canPress: 1
   pressAgainThreshold: 0
   nextPressThreshold: 0
   meterSpeed: 10
-  noOfSwings: 0
+  noOfSwings: 1
   swingNo: 0
   keysToPressRandom: 1
   keysToPress: []

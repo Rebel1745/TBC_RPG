@@ -6,6 +6,6 @@ public class AnimationReferralTest : MonoBehaviour
 {
     public void DoDamage()
     {
-        AnimationTest.instance.DoDamage();
+        //AnimationTest.instance.DoDamage();
     }
 }

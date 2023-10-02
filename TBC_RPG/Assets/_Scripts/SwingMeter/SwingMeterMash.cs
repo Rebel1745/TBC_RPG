@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SwingMeterAlternate : SwingMeter {
+public class SwingMeterMash : SwingMeter {
 
     // Define max position for keysToPressPanel
     public Transform keysToPressPanelMax;
@@ -54,9 +54,9 @@ public class SwingMeterAlternate : SwingMeter {
         {
             // Check the color of the image corresponding with the position on the image the swing meter stopped on
             Color stoppingColor = GetColorAtStoppingPoint(mashNo);
-            string hitType = CheckHitType(stoppingColor);
+            DAMAGE_TYPE hitType = CheckHitType(stoppingColor);
 
-            // TODO: Damage
+            HitsDamage[0] = new Damage { DamageType = hitType };
 
             isSwinging = false;
             swingMeter.value = swingMeter.minValue;
@@ -99,23 +99,27 @@ public class SwingMeterAlternate : SwingMeter {
         }
     }
 
-    string CheckHitType(Color stoppingColor)
+    DAMAGE_TYPE CheckHitType(Color stoppingColor)
     {
-        string textToAdd = "";
+        DAMAGE_TYPE dt = DAMAGE_TYPE.Miss;
+        //string textToAdd = "";
         if (stoppingColor.g == 1f)
         {
-            textToAdd = "crit";
+            dt = DAMAGE_TYPE.Critical;
+            //textToAdd = "crit";
         }
         else if (stoppingColor.b == 1f)
         {
-            textToAdd = "normal";
+            dt = DAMAGE_TYPE.Normal;
+            //textToAdd = "normal";
         }
         else if (stoppingColor.r == 1f)
         {
-            textToAdd = "weak";
+            dt = DAMAGE_TYPE.Weak;
+            //textToAdd = "weak";
         }
 
-        return textToAdd;
+        return dt;
     }
 
     public override void InitialiseKeys()
