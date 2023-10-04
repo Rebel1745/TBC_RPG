@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SwingMeter : MonoBehaviour {
 
@@ -32,7 +31,7 @@ public class SwingMeter : MonoBehaviour {
     public string keyPressed = "";
 
     // Define an array of text boxes for the keysToPress
-    public Text[] keysToPressText;
+    public TMP_Text[] keysToPressText;
     // Define an array of transforms for the keysToPress (allows their position to follow the swingMeter.value)
     public Transform[] keysToPressPanels;
     // Define spawn points for the keysToPressPanels
