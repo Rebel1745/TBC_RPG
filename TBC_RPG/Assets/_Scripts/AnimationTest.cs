@@ -107,7 +107,7 @@ public class AnimationTest : MonoBehaviour
 
     public void DoDamage()
     {
-        enemyAnim?.GetComponentInParent<Health>().ChangeHealth(-55f);
+        //enemyAnim?.GetComponentInParent<Health>().ChangeHealth(-55f);
     }
 
     /*void CheckForInput()

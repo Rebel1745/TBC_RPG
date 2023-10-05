@@ -5,6 +5,7 @@ using UnityEngine;
 public class Damage
 {
     public DAMAGE_TYPE DamageType;
+    public float AmountOfDamage;
 }
 
 public enum DAMAGE_TYPE

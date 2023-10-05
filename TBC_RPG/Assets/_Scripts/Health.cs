@@ -15,6 +15,12 @@ public class Health : MonoBehaviour
     [SerializeField] string damageAnimation = "Damaged";
     [SerializeField] string deathAnimation = "Death";
 
+    // Damage colours
+    [SerializeField] Color normalDamageColor = Color.red;
+    [SerializeField] Color weakDamageColor = Color.blue;
+    [SerializeField] Color criticalDamageColor = Color.green;
+    [SerializeField] Color missDamageColor = Color.black;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,12 +31,35 @@ public class Health : MonoBehaviour
         healthBar.value = currentHealth;
     }
 
-    public void ChangeHealth(float amount, bool isPercentageChange = false)
+    public IEnumerator ApplyHits(Damage[] hits)
     {
-        anim.Play(damageAnimation);
+        bool playAnimation = false;
+        Color damageCol = Color.black;
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            yield return new WaitForSeconds(0.2f);
+            // only play the animation on the first hit
+            playAnimation = i == 0 ? true : false;
+
+            switch (hits[i].DamageType)
+            {
+                case DAMAGE_TYPE.Weak: damageCol = weakDamageColor; break;
+                case DAMAGE_TYPE.Normal: damageCol = normalDamageColor; break;
+                case DAMAGE_TYPE.Critical: damageCol = criticalDamageColor; break;
+            }
+
+            ChangeHealth(-hits[i].AmountOfDamage, playAnimation, damageCol, false);
+        }
+    }
+
+    public void ChangeHealth(float amount, bool playAnimation, Color damageCol, bool isPercentageChange = false)
+    {
+        if (playAnimation)
+            anim.Play(damageAnimation);
 
         float change = amount;
-        pn.CreatePopup(Mathf.Abs(amount).ToString(), Color.red);
+        pn.CreatePopup(Mathf.Abs(amount).ToString(), damageCol);
 
         if (isPercentageChange)
         {

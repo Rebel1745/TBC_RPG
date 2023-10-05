@@ -112,7 +112,7 @@ public class SwingMeter : MonoBehaviour {
         //mlc.Cancel();
         AttackController ac = Swinger.GetComponentInChildren<AttackController>();
         ac.AttackAgain();
-        ac.DoDamage(HitsDamage);
+        ac.SetupDamage(HitsDamage);
 
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Move");
         foreach (GameObject go in gos)

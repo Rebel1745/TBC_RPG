@@ -22,6 +22,8 @@ public class AttackController : MonoBehaviour
     Animator animToUse;
     string animToPlay;
 
+    Damage[] ProcessedHits;
+
     private void Start()
     {
         attackParentCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
@@ -107,11 +109,40 @@ public class AttackController : MonoBehaviour
         UIManager.instance.SetInfoBarText("Time to attack again");
     }
 
-    public void DoDamage(Damage[] hits)
+    public void SetupDamage(Damage[] hits)
     {
-        foreach(Damage d in hits)
+        print("AttackController::DoDamage");
+        // TODO: maybe remove this hardcoded damage amount with something variable on the character
+        float totalAttackDamage = 50f;
+        float damagePerHit = totalAttackDamage / (float)hits.Length;
+        float damageMultiplier = 1f;
+        foreach (Damage d in hits)
         {
-            print(d.DamageType);
+            if (d == null)
+                d.DamageType = DAMAGE_TYPE.Miss;
+
+            switch (d.DamageType)
+            {
+                case DAMAGE_TYPE.Miss:
+                    damageMultiplier = 0f;
+                    break;
+                case DAMAGE_TYPE.Weak:
+                    damageMultiplier = 0.5f;
+                    break;
+                case DAMAGE_TYPE.Critical:
+                    damageMultiplier = 1.5f;
+                    break;
+            }
+
+            d.AmountOfDamage = damagePerHit * damageMultiplier;
         }
+
+        // save this in a variable to utilise when the EventAction of the animation is ready
+        ProcessedHits = hits;
+    }
+
+    public void DoDamage()
+    {
+        StartCoroutine(target.GetComponent<Health>().ApplyHits(ProcessedHits));
     }
 }
