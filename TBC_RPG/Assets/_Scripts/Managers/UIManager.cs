@@ -19,8 +19,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ShowHideInfoBar(true);
-        ShowHideAttackList(true);
+        ShowHideInfoBar(false);
+        ShowHideAttackList(false);
         SetInfoBarText("Player One, select your attack");
     }
 
