@@ -7,9 +7,14 @@ public class CharacterMovement : MonoBehaviour
     int targetIndex;
     float speed = 10;
 
+    [SerializeField] int maxMovementDistance = 3;
+    public int MovementDistance { get { return maxMovementDistance; } }
+
     Node[] path;
     bool isMoving;
     Vector3 currentWaypoint;
+
+    public Node currentNode;
 
     private void Start()
     {
@@ -26,9 +31,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void SetPath(Node[] waypoints)
     {
-        print(waypoints.Length);
         isMoving = true;
-        path = new Node[waypoints.Length];
         path = waypoints;
         targetIndex = 0;
         currentWaypoint = path[0].worldPosition;
@@ -40,12 +43,13 @@ public class CharacterMovement : MonoBehaviour
     {
         while (true)
         {
-            if(Vector3.Distance(transform.position, currentWaypoint) < 0.1f)
+            if (Vector3.Distance(transform.position, currentWaypoint) < 0.1f)
             {
                 targetIndex++;
                 if (targetIndex >= path.Length)
                 {
                     isMoving = false;
+                    transform.position = currentWaypoint;
                     yield break;
                 }
                 currentWaypoint = path[targetIndex].worldPosition;
@@ -53,18 +57,6 @@ public class CharacterMovement : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (path != null)
-        {
-                Gizmos.color = Color.black;
-            foreach (Node n in path)
-            {
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (5 - .1f));
-            }
         }
     }
 }

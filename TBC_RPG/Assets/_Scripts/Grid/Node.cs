@@ -2,9 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Node
+public class Node : IHeapItem<Node>
 {
-
     public bool walkable;
     public Vector3 worldPosition;
     public int gridX;
@@ -13,8 +12,17 @@ public class Node
     public int gCost;
     public int hCost;
     public Node parent;
+    int heapIndex;
 
     public List<Node> nodeNeighbours;
+
+    // sprite info
+    // if the sprite type is changed somewhere else, it doesn't get updated here before the nodes get redrawn
+    public NODE_SPRITE_TYPE spriteType;
+    public GameObject spriteGO;
+    public NODE_SPRITE_TYPE newSpriteType;
+    public Quaternion spriteRotation;
+    public bool isRedrawSprite = false;
 
     public Node(bool _walkable, Vector3 _worldPos, int _gridX, int _gridY)
     {
@@ -24,12 +32,35 @@ public class Node
         gridY = _gridY;
     }
 
+    public void UpdateSprite(NODE_SPRITE_TYPE newType, Quaternion rotation)
+    {
+        isRedrawSprite = true;
+        newSpriteType = newType;
+        spriteRotation = rotation;
+    }
+
     public int fCost
     {
         get
         {
             return gCost + hCost;
         }
+    }
+
+    public int HeapIndex
+    {
+        get { return heapIndex; }
+        set { heapIndex = value; }
+    }
+
+    public int CompareTo(Node nodeToCompare)
+    {
+        int compare = fCost.CompareTo(nodeToCompare.fCost);
+        if (compare == 0)
+        {
+            compare = hCost.CompareTo(nodeToCompare.hCost);
+        }
+        return -compare;
     }
 
     public void SetNeighbours(NodeGrid g, int gridSizeX, int gridSizeY)
@@ -53,4 +84,12 @@ public class Node
 
         nodeNeighbours = neighbours;
     }
+}
+
+public enum NODE_SPRITE_TYPE
+{
+    Any, // used for resetting all sprites back to none
+    None,
+    Available,
+    Path
 }
