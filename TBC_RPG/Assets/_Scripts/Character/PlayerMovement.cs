@@ -32,13 +32,22 @@ public class PlayerMovement : MonoBehaviour
             Pathfinding.instance.RemovePathNodes();
     }
 
+    [SerializeField] LayerMask whatIsGround;
+
     void GetCurrentNodeFromMousePosition()
     {
         Node previousNode = nodeUnderMouse;
-        nodeUnderMouse = NodeGrid.instance.NodeFromWorldPoint(GetMouseWorldPosition());
 
-        if (previousNode != nodeUnderMouse)
-            OnMouseOverNodeChange?.Invoke(this, EventArgs.Empty);
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(mouseRay, out hitInfo, Mathf.Infinity, whatIsGround))
+        {
+            nodeUnderMouse = NodeGrid.instance.NodeFromWorldPoint(hitInfo.point);
+
+            if (previousNode != nodeUnderMouse)
+                OnMouseOverNodeChange?.Invoke(this, EventArgs.Empty);
+        }
     }
 
     void CheckForMouseClick()
@@ -48,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
             cm.currentNode = NodeGrid.instance.NodeFromWorldPoint(transform.position);
             transform.position = cm.currentNode.worldPosition;
 
-            Node endNode = NodeGrid.instance.NodeFromWorldPoint(GetMouseWorldPosition());
+            Node endNode = NodeGrid.instance.NodeFromWorldPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
             if (cm.currentNode != endNode)
             {
@@ -69,25 +78,5 @@ public class PlayerMovement : MonoBehaviour
 
             Pathfinding.instance.ShowPossibleMoveNodes(cm.currentNode, cm.MovementDistance);
         }
-    }
-
-    // testing stuff for now
-    public static Vector3 GetMouseWorldPosition() {
-        Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
-        vec.z = 0f;
-        return vec;
-    }
-    public static Vector3 GetMouseWorldPositionWithZ()
-    {
-        return GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
-    }
-    public static Vector3 GetMouseWorldPositionWithZ(Camera worldCamera)
-    {
-        return GetMouseWorldPositionWithZ(Input.mousePosition, worldCamera);
-    }
-    public static Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
-    {
-        Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
-        return worldPosition;
     }
 }
