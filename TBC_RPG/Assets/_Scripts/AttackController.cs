@@ -145,4 +145,9 @@ public class AttackController : MonoBehaviour
     {
         StartCoroutine(target.GetComponent<Health>().ApplyHits(ProcessedHits));
     }
+
+    public void SetTarget(GameObject newTarget)
+    {
+        target = newTarget;
+    }
 }

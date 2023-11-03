@@ -437,7 +437,7 @@ Transform:
   m_GameObject: {fileID: 1922710877469551584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6899349994529637065}
@@ -463,6 +463,10 @@ MonoBehaviour:
   startingHealth: 100
   damageAnimation: Damaged
   deathAnimation: Death
+  normalDamageColor: {r: 1, g: 0, b: 0, a: 1}
+  weakDamageColor: {r: 0, g: 0, b: 1, a: 1}
+  criticalDamageColor: {r: 0, g: 1, b: 0, a: 1}
+  missDamageColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1922710877469551597
 MonoBehaviour:
   m_ObjectHideFlags: 0

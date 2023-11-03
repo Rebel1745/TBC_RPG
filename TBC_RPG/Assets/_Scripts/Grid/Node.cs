@@ -16,6 +16,8 @@ public class Node : IHeapItem<Node>
 
     public List<Node> nodeNeighbours;
 
+    public GameObject characterOnNode;
+
     // sprite info
     // if the sprite type is changed somewhere else, it doesn't get updated here before the nodes get redrawn
     public NODE_SPRITE_TYPE spriteType;
@@ -61,6 +63,12 @@ public class Node : IHeapItem<Node>
             compare = hCost.CompareTo(nodeToCompare.hCost);
         }
         return -compare;
+    }
+
+    public void SetNodeCharacter(GameObject character, bool isWalkable)
+    {
+        characterOnNode = character;
+        walkable = isWalkable;
     }
 
     public void SetNeighbours(NodeGrid g, int gridSizeX, int gridSizeY)

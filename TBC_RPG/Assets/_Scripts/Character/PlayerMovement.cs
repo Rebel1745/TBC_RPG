@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] CharacterMovement cm;
     [SerializeField] float timeBetweenMousePositionCheck = 0.1f;
+
+    [SerializeField] LayerMask whatIsGround;
+
     Node nodeUnderMouse = null;
 
     public event EventHandler OnMouseOverNodeChange;
@@ -19,7 +22,42 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        CheckForMouseClick();
+        if(BattleManager.instance.battleStatus == BATTLE_STATUS.WaitingForMove)
+            CheckForMovementClick();
+
+        if (BattleManager.instance.battleStatus == BATTLE_STATUS.WaitingForTarget)
+            CheckForTargetClick();
+    }
+
+    void CheckForTargetClick()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            if(nodeUnderMouse.characterOnNode != null)
+            {
+                cm.ac.SetTarget(nodeUnderMouse.characterOnNode);
+            }
+        }
+    }
+
+    void CheckForMovementClick()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            cm.currentNode = NodeGrid.instance.NodeFromWorldPoint(transform.position);
+            transform.position = cm.currentNode.worldPosition;
+
+            if (cm.currentNode != nodeUnderMouse)
+            {
+                Node[] path = Pathfinding.instance.FindPath(cm.currentNode, nodeUnderMouse);
+
+                if (path != null && path.Length <= cm.MovementDistance)
+                {
+                    NodeGrid.instance.ResetSprites(NODE_SPRITE_TYPE.Any, NODE_SPRITE_TYPE.None, Quaternion.identity);
+                    cm.SetPath(path);
+                }
+            }
+        }
     }
 
     void OnMouseOverNodeChanged(object sender, System.EventArgs e)
@@ -31,8 +69,6 @@ public class PlayerMovement : MonoBehaviour
         else
             Pathfinding.instance.RemovePathNodes();
     }
-
-    [SerializeField] LayerMask whatIsGround;
 
     void GetCurrentNodeFromMousePosition()
     {
@@ -57,11 +93,9 @@ public class PlayerMovement : MonoBehaviour
             cm.currentNode = NodeGrid.instance.NodeFromWorldPoint(transform.position);
             transform.position = cm.currentNode.worldPosition;
 
-            Node endNode = NodeGrid.instance.NodeFromWorldPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-            if (cm.currentNode != endNode)
+            if (cm.currentNode != nodeUnderMouse)
             {
-                Node[] path = Pathfinding.instance.FindPath(cm.currentNode, endNode);
+                Node[] path = Pathfinding.instance.FindPath(cm.currentNode, nodeUnderMouse);
 
                 if (path != null && path.Length <= cm.MovementDistance)
                 {
@@ -70,13 +104,13 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
 
-        if (Input.GetMouseButtonUp(1))
-        {
-            cm.currentNode = NodeGrid.instance.NodeFromWorldPoint(transform.position);
-            transform.position = cm.currentNode.worldPosition;
+    public void ShowAvailableMoves()
+    {
+        cm.currentNode = NodeGrid.instance.NodeFromWorldPoint(transform.position);
+        transform.position = cm.currentNode.worldPosition;
 
-            Pathfinding.instance.ShowPossibleMoveNodes(cm.currentNode, cm.MovementDistance);
-        }
+        Pathfinding.instance.ShowPossibleMoveNodes(cm.currentNode, cm.MovementDistance);
     }
 }
