@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CharacterMovement))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] int characterId; // used for DEBUG only
     [SerializeField] CharacterMovement cm;
     [SerializeField] float timeBetweenMousePositionCheck = 0.1f;
 
@@ -17,13 +18,19 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         OnMouseOverNodeChange += OnMouseOverNodeChanged;
-        InvokeRepeating("GetCurrentNodeFromMousePosition", 0f, timeBetweenMousePositionCheck);
+        //InvokeRepeating("GetCurrentNodeFromMousePosition", 0f, timeBetweenMousePositionCheck);
     }
 
     void Update()
     {
-        if(BattleManager.instance.battleStatus == BATTLE_STATUS.WaitingForMove)
+        if (BattleManager.instance.currentCharacterId != characterId) return;
+
+        GetCurrentNodeFromMousePosition();
+
+        if (BattleManager.instance.battleStatus == BATTLE_STATUS.WaitingForMove)
+        {
             CheckForMovementClick();
+        }
 
         if (BattleManager.instance.battleStatus == BATTLE_STATUS.WaitingForTarget)
             CheckForTargetClick();
@@ -33,9 +40,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            if(nodeUnderMouse.characterOnNode != null)
+            print(nodeUnderMouse.characterOnNode.name);
+            if(nodeUnderMouse.characterOnNode != null && nodeUnderMouse.characterOnNode.GetComponent<PlayerMovement>().characterId != characterId)
             {
-                cm.ac.SetTarget(nodeUnderMouse.characterOnNode);
+                BattleManager.instance.SelectTarget(nodeUnderMouse.characterOnNode);
             }
         }
     }

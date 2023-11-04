@@ -68,7 +68,7 @@ public class CharacterMovement : MonoBehaviour
                     // make the node the character is currently on unwalkable so other characters can't move to the same node
                     path[targetIndex-1].SetNodeCharacter(this.gameObject, false);
                     // we have moved, change the status to wait for an attack
-                    BattleManager.instance.ChangeBattleStatus(BATTLE_STATUS.WaitingForAttackSelection);
+                    BattleManager.instance.ChangeBattleStatus(BATTLE_STATUS.WaitingForTarget);
                     yield break;
                 }
                 currentWaypoint = path[targetIndex].worldPosition;

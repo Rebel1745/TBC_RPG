@@ -123,12 +123,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicAttackPrefab: {fileID: 1497792851114160, guid: 88818d4a315325d408ddb02ed3aee54d, type: 3}
+  basicAttackAnimation: Crash
   comboAttack2Prefab: {fileID: 1739867893971094, guid: 4f47a3207cb98ad48b1eecc25b540cde, type: 3}
+  comboAttack2Animation: Kick
   comboAttack3Prefab: {fileID: 1548032006213892, guid: 834ead5c632e6e14288864b2081cae22, type: 3}
+  comboAttack3Animation: Slash
   comboAttack4Prefab: {fileID: 1406261368000268, guid: ef972474c2510da49b1b64d7800213b1, type: 3}
+  comboAttack4Animation: Crash
   comboAttack5Prefab: {fileID: 1417682585369608, guid: ad9599f24bafa814aac0f2b64b4353cc, type: 3}
+  comboAttack5Animation: Kick
   matchAttackPrefab: {fileID: 1158246331073994, guid: da9bdfc81edc21446bccd08cb46bd614, type: 3}
+  matchAttackAnimation: Slash
   mashAttackPrefab: {fileID: 1998242240576286, guid: 576bfaa44e478ae41b74804dcffbe9cf, type: 3}
+  mashAttackAnimation: Crash
   anim: {fileID: 146451170147088890}
   target: {fileID: 0}
 --- !u!114 &1072896629143264177
@@ -148,6 +155,7 @@ MonoBehaviour:
   runAnimation: Run
   idleAnimation: Idle
   moveSpeed: 5
+  ac: {fileID: 848074154490792878}
 --- !u!114 &6523942428355218173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97827d1b3c07e7a4ca13082b096f3252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ac: {fileID: 0}
+  ac: {fileID: 848074154490792878}
 --- !u!1 &1197181073427158444
 GameObject:
   m_ObjectHideFlags: 0

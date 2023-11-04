@@ -8,6 +8,7 @@ public class AnimationReferral : MonoBehaviour
 
     public void DoDamage()
     {
+        print("AnimationReferral::DoDamage");
         ac.DoDamage();
     }
 }

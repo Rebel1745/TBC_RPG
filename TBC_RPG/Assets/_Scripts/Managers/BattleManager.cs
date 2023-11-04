@@ -15,12 +15,10 @@ public class BattleManager : MonoBehaviour
 
     GameObject[] characters;
     GameObject currentCharacter;
+    public int currentCharacterId { get; protected set; }
+    int totalCharacters = 2;
 
     public BATTLE_STATUS battleStatus { get; protected set; }
-
-    //
-    // TODO: connect the buttons on the attack panel to the select attack function so when an attack is selected it is shown on screen
-    //
 
     private void Awake()
     {
@@ -38,7 +36,7 @@ public class BattleManager : MonoBehaviour
         startBattlePanel.gameObject.SetActive(false);
 
         // spawn the characters and set the nodes they start on as unwalkable
-        Node playerSpawnNode = NodeGrid.instance.NodeFromWorldPoint( new Vector3(-2.5f, 0f, -1.5f));
+        Node playerSpawnNode = NodeGrid.instance.NodeFromWorldPoint( new Vector3(-3.5f, 0f, -1.5f));
         GameObject player = Instantiate(playerPrefab, playerSpawnNode.worldPosition, Quaternion.identity, transform);
         playerSpawnNode.SetNodeCharacter(player, false);
 
@@ -46,13 +44,17 @@ public class BattleManager : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, enemySpawnNode.worldPosition, Quaternion.identity, transform);
         enemySpawnNode.SetNodeCharacter(enemy, false);
 
+        // make them look at each other
+        player.transform.LookAt(enemy.transform);
+        enemy.transform.LookAt(player.transform);
+
         // add the two characters to the character array
         characters = new GameObject[2];
         characters[0] = player;
         characters[1] = enemy;
 
         // set the player as the current character
-        currentCharacter = characters[0];
+        currentCharacter = characters[currentCharacterId];
 
         ChangeBattleStatus(BATTLE_STATUS.WaitingForMove);
     }
@@ -64,30 +66,52 @@ public class BattleManager : MonoBehaviour
         switch (newStatus)
         {
             case BATTLE_STATUS.WaitingForMove:
+                print("Waiting for move");
                 currentCharacter.GetComponent<PlayerMovement>().ShowAvailableMoves();
                 break;
+            case BATTLE_STATUS.WaitingForTarget:
+                print("Waiting for target selection");
+                break;
             case BATTLE_STATUS.WaitingForAttackSelection:
+                print("Waiting for attack selection");
                 attackPanel.gameObject.SetActive(true);
                 break;
-            case BATTLE_STATUS.WaitingForTarget:
+            case BATTLE_STATUS.WaitingForAttack:
+                break;
+            case BATTLE_STATUS.NextTurn:
+                NextTurn();
                 break;
         }
     }
 
-    public void SelectAttack()
+    void NextTurn()
     {
-
+        print("BattleManger::NextTurn");
+        currentCharacterId = (currentCharacterId + 1) % totalCharacters;
+        currentCharacter = characters[currentCharacterId];
+        //print(currentCharacter.name + " (" + currentCharacterId + ")");
+        ChangeBattleStatus(BATTLE_STATUS.WaitingForMove);
     }
 
-    public void SelectTarget()
+    public void SelectAttack(string attackName)
     {
+        currentCharacter.GetComponent<AttackController>().SetupAttack(attackName);
+        ChangeBattleStatus(BATTLE_STATUS.WaitingForAttack);
+    }
 
+    public void SelectTarget(GameObject target)
+    {
+        currentCharacter.transform.LookAt(target.transform);
+        currentCharacter.GetComponent<AttackController>().SetTarget(target);
+        ChangeBattleStatus(BATTLE_STATUS.WaitingForAttackSelection);
     }
 }
 
 public enum BATTLE_STATUS
 {
     WaitingForMove,
+    WaitingForTarget,
     WaitingForAttackSelection,
-    WaitingForTarget
+    WaitingForAttack,
+    NextTurn
 }

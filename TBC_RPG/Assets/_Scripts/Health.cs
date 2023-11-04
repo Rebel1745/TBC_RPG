@@ -33,6 +33,7 @@ public class Health : MonoBehaviour
 
     public IEnumerator ApplyHits(Damage[] hits)
     {
+        print("Health::ApplyHits");
         bool playAnimation = false;
         Color damageCol = Color.black;
 
@@ -51,6 +52,8 @@ public class Health : MonoBehaviour
 
             ChangeHealth(-hits[i].AmountOfDamage, playAnimation, damageCol, false);
         }
+
+        BattleManager.instance.ChangeBattleStatus(BATTLE_STATUS.NextTurn);
     }
 
     public void ChangeHealth(float amount, bool playAnimation, Color damageCol, bool isPercentageChange = false)

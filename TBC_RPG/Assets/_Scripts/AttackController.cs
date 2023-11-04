@@ -8,18 +8,24 @@ public class AttackController : MonoBehaviour
 
     // Swing meters... TODO: make these an array of abilities (scriptable objects)
     [SerializeField] GameObject basicAttackPrefab;
+    [SerializeField] string basicAttackAnimation;
     [SerializeField] GameObject comboAttack2Prefab;
+    [SerializeField] string comboAttack2Animation;
     [SerializeField] GameObject comboAttack3Prefab;
+    [SerializeField] string comboAttack3Animation;
     [SerializeField] GameObject comboAttack4Prefab;
+    [SerializeField] string comboAttack4Animation;
     [SerializeField] GameObject comboAttack5Prefab;
+    [SerializeField] string comboAttack5Animation;
     [SerializeField] GameObject matchAttackPrefab;
+    [SerializeField] string matchAttackAnimation;
     [SerializeField] GameObject mashAttackPrefab;
+    [SerializeField] string mashAttackAnimation;
 
     [SerializeField] Animator anim;
     [SerializeField] GameObject target;
 
     bool canAttack = true;
-    Animator animToUse;
     string animToPlay;
 
     Damage[] ProcessedHits;
@@ -40,51 +46,44 @@ public class AttackController : MonoBehaviour
         {
             case "basic":
                 prefabToUse = basicAttackPrefab;
-                animToUse = anim;
-                animToPlay = "Slash";
+                animToPlay = basicAttackAnimation;
                 break;
             case "combo2":
                 prefabToUse = comboAttack2Prefab;
-                animToUse = anim;
-                animToPlay = "Crash";
+                animToPlay = comboAttack2Animation;
                 break;
             case "combo3":
                 prefabToUse = comboAttack3Prefab;
-                animToUse = anim;
-                animToPlay = "Kick";
+                animToPlay = comboAttack3Animation;
                 break;
             case "combo4":
                 prefabToUse = comboAttack4Prefab;
-                animToUse = anim;
-                animToPlay = "Slash";
+                animToPlay = comboAttack4Animation;
                 break;
             case "combo5":
                 prefabToUse = comboAttack5Prefab;
-                animToUse = anim;
-                animToPlay = "Crash";
+                animToPlay = comboAttack5Animation;
                 break;
             case "match":
                 prefabToUse = matchAttackPrefab;
-                animToUse = anim;
-                animToPlay = "Kick";
+                animToPlay = matchAttackAnimation;
                 break;
             case "mash":
                 prefabToUse = mashAttackPrefab;
-                animToUse = anim;
-                animToPlay = "Slash";
+                animToPlay = mashAttackAnimation;
                 break;
         }
 
-        PerformAttack(prefabToUse, animToUse, animToPlay);
+        PerformAttack(prefabToUse, animToPlay);
     }
 
-    void PerformAttack(GameObject attackPrefab, Animator animator, string animation)
+    void PerformAttack(GameObject attackPrefab, string animation)
     {
+        print("AttackController::PerformAttack");
         if (!attackPrefab)
             Debug.LogError("AnimationTest-PerformAttck: No attack prefab recieved");
 
         canAttack = false;
-        animToUse = animator;
         animToPlay = animation;
         UIManager.instance.ShowHideInfoBar(false);
         UIManager.instance.ShowHideAttackList(false);
@@ -103,15 +102,15 @@ public class AttackController : MonoBehaviour
     public void AttackAgain()
     {
         canAttack = true;
-        animToUse.Play(animToPlay);
-        UIManager.instance.ShowHideInfoBar(true);
-        UIManager.instance.ShowHideAttackList(true);
-        UIManager.instance.SetInfoBarText("Time to attack again");
+        anim.Play(animToPlay);
+        //UIManager.instance.ShowHideInfoBar(true);
+        //UIManager.instance.ShowHideAttackList(true);
+        //UIManager.instance.SetInfoBarText("Time to attack again");
     }
 
     public void SetupDamage(Damage[] hits)
     {
-        print("AttackController::DoDamage");
+        print("AttackController::SetupDamage");
         // TODO: maybe remove this hardcoded damage amount with something variable on the character
         float totalAttackDamage = 50f;
         float damagePerHit = totalAttackDamage / (float)hits.Length;
@@ -143,6 +142,7 @@ public class AttackController : MonoBehaviour
 
     public void DoDamage()
     {
+        print("AttackController::DoDamage");
         StartCoroutine(target.GetComponent<Health>().ApplyHits(ProcessedHits));
     }
 
