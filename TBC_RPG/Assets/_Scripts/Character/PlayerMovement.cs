@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            print(nodeUnderMouse.characterOnNode.name);
             if(nodeUnderMouse.characterOnNode != null && nodeUnderMouse.characterOnNode.GetComponent<PlayerMovement>().characterId != characterId)
             {
                 BattleManager.instance.SelectTarget(nodeUnderMouse.characterOnNode);

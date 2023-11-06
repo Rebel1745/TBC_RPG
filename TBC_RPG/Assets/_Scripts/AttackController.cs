@@ -85,7 +85,7 @@ public class AttackController : MonoBehaviour
 
         canAttack = false;
         animToPlay = animation;
-        UIManager.instance.ShowHideInfoBar(false);
+        //UIManager.instance.ShowHideInfoBar(false);
         UIManager.instance.ShowHideAttackList(false);
 
         GameObject go = Instantiate(attackPrefab, attackParentCanvas.transform);

@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform infoBar;
     [SerializeField] TMP_Text infoBarText;
     [SerializeField] Transform attackList;
+    [SerializeField] Transform actionList;
+    [SerializeField] Transform startBattlePanel;
 
     private void Awake()
     {
@@ -21,7 +23,18 @@ public class UIManager : MonoBehaviour
     {
         ShowHideInfoBar(false);
         ShowHideAttackList(false);
-        SetInfoBarText("Player One, select your attack");
+        ShowHideActionList(false);
+        //SetInfoBarText("Player One, select your attack");
+    }
+
+    public void ShowHideBattlePanel(bool show)
+    {
+        startBattlePanel.gameObject.SetActive(show);
+    }
+
+    public void ShowHideActionList(bool show)
+    {
+        actionList.gameObject.SetActive(show);
     }
 
     public void ShowHideAttackList(bool show)

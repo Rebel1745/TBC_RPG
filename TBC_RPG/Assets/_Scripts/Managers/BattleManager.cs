@@ -10,9 +10,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject playerPrefab;
     [SerializeField] GameObject enemyPrefab;
 
-    [SerializeField] Transform startBattlePanel;
-    [SerializeField] Transform attackPanel;
-
     GameObject[] characters;
     GameObject currentCharacter;
     public int currentCharacterId { get; protected set; }
@@ -27,13 +24,16 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
-        startBattlePanel.gameObject.SetActive(true);
+        UIManager.instance.ShowHideBattlePanel(true);
     }
 
     public void StartBattle()
     {
         // first, hide the start battle button
-        startBattlePanel.gameObject.SetActive(false);
+        UIManager.instance.ShowHideBattlePanel(false);
+
+        // show the info bar
+        UIManager.instance.ShowHideInfoBar(true);
 
         // spawn the characters and set the nodes they start on as unwalkable
         Node playerSpawnNode = NodeGrid.instance.NodeFromWorldPoint( new Vector3(-3.5f, 0f, -1.5f));
@@ -56,7 +56,14 @@ public class BattleManager : MonoBehaviour
         // set the player as the current character
         currentCharacter = characters[currentCharacterId];
 
-        ChangeBattleStatus(BATTLE_STATUS.WaitingForMove);
+        ChangeBattleStatus(BATTLE_STATUS.WaitingForAction);
+    }
+
+    IEnumerator ChangeBattleStatus(BATTLE_STATUS newStatus, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        ChangeBattleStatus(newStatus);
     }
 
     public void ChangeBattleStatus(BATTLE_STATUS newStatus)
@@ -65,16 +72,20 @@ public class BattleManager : MonoBehaviour
 
         switch (newStatus)
         {
+            case BATTLE_STATUS.WaitingForAction:
+                UIManager.instance.SetInfoBarText("Select an action to perform");
+                UIManager.instance.ShowHideActionList(true);
+                break;
             case BATTLE_STATUS.WaitingForMove:
-                print("Waiting for move");
+                UIManager.instance.SetInfoBarText("Select a location to move to");
                 currentCharacter.GetComponent<PlayerMovement>().ShowAvailableMoves();
                 break;
             case BATTLE_STATUS.WaitingForTarget:
-                print("Waiting for target selection");
+                UIManager.instance.SetInfoBarText("Select a target to attack");
                 break;
             case BATTLE_STATUS.WaitingForAttackSelection:
-                print("Waiting for attack selection");
-                attackPanel.gameObject.SetActive(true);
+                UIManager.instance.SetInfoBarText("Select an attack to perform");
+                UIManager.instance.ShowHideAttackList(true);
                 break;
             case BATTLE_STATUS.WaitingForAttack:
                 break;
@@ -90,7 +101,7 @@ public class BattleManager : MonoBehaviour
         currentCharacterId = (currentCharacterId + 1) % totalCharacters;
         currentCharacter = characters[currentCharacterId];
         //print(currentCharacter.name + " (" + currentCharacterId + ")");
-        ChangeBattleStatus(BATTLE_STATUS.WaitingForMove);
+        ChangeBattleStatus(BATTLE_STATUS.WaitingForAction);
     }
 
     public void SelectAttack(string attackName)
@@ -105,10 +116,26 @@ public class BattleManager : MonoBehaviour
         currentCharacter.GetComponent<AttackController>().SetTarget(target);
         ChangeBattleStatus(BATTLE_STATUS.WaitingForAttackSelection);
     }
+
+    public void SelectAction(string action)
+    {
+        switch (action)
+        {
+            case "move":
+                StartCoroutine( ChangeBattleStatus(BATTLE_STATUS.WaitingForMove, 1f));
+                break;
+            case "attack":
+                ChangeBattleStatus(BATTLE_STATUS.WaitingForTarget);
+                break;
+        }
+
+        UIManager.instance.ShowHideActionList(false);
+    }
 }
 
 public enum BATTLE_STATUS
 {
+    WaitingForAction,
     WaitingForMove,
     WaitingForTarget,
     WaitingForAttackSelection,
