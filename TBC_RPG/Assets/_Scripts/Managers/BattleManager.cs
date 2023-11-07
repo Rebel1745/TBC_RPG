@@ -104,9 +104,9 @@ public class BattleManager : MonoBehaviour
         ChangeBattleStatus(BATTLE_STATUS.WaitingForAction);
     }
 
-    public void SelectAttack(string attackName)
+    public void SelectAttack(Ability ability)
     {
-        currentCharacter.GetComponent<AttackController>().SetupAttack(attackName);
+        currentCharacter.GetComponent<AttackController>().SetupAttack(ability);
         ChangeBattleStatus(BATTLE_STATUS.WaitingForAttack);
     }
 

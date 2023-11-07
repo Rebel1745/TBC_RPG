@@ -3,15 +3,24 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 440511e9f8f1adb42889b9a7e9f2e427, type: 3}
+  m_Script: {fileID: 11500000, guid: 2343693ac7eb9134f87c0a9783aac95d, type: 3}
   m_Name: Attack_Combo4
   m_EditorClassIdentifier: 
-  AbilityName: Combo Attack 4
-  AbilitySwingMeterPrefab: {fileID: 1417682585369608, guid: e257a348a0b3b5a4cbd1c7e28d397e46,
-    type: 2}
+  AbilityName: 4 Combo Attack
+  AbilitySwingMeterPrefab: {fileID: 1406261368000268, guid: ef972474c2510da49b1b64d7800213b1, type: 3}
+  AnimationName: Crash
   isSelfCast: 0
+  isTargetOpponent: 1
+  isAOE: 0
+  AOEArea: 0
+  DamagePerHit: 10
+  CritDamageMultiplier: 1.5
+  WeakDamageMultiplier: 0.5
+  MinEffectiveDistance: 1
+  MaxEffectiveDistance: 1

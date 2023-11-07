@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] int characterId; // used for DEBUG only
     [SerializeField] CharacterMovement cm;
-    [SerializeField] float timeBetweenMousePositionCheck = 0.1f;
 
     [SerializeField] LayerMask whatIsGround;
 
@@ -18,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         OnMouseOverNodeChange += OnMouseOverNodeChanged;
-        //InvokeRepeating("GetCurrentNodeFromMousePosition", 0f, timeBetweenMousePositionCheck);
     }
 
     void Update()

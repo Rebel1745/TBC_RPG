@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2343693ac7eb9134f87c0a9783aac95d, type: 3}
-  m_Name: Attack_Basic
+  m_Name: Attack_Combo5
   m_EditorClassIdentifier: 
-  AbilityName: Basic Attack
-  AbilitySwingMeterPrefab: {fileID: 1497792851114160, guid: 88818d4a315325d408ddb02ed3aee54d, type: 3}
+  AbilityName: 5 Combo Attack
+  AbilitySwingMeterPrefab: {fileID: 1417682585369608, guid: ad9599f24bafa814aac0f2b64b4353cc, type: 3}
   AnimationName: Crash
   isSelfCast: 0
   isTargetOpponent: 1
