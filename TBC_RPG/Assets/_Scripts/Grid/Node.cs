@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Node : IHeapItem<Node>
 {
     public bool walkable;
@@ -14,13 +15,14 @@ public class Node : IHeapItem<Node>
     public Node parent;
     int heapIndex;
 
+    [SerializeReference]
     public List<Node> nodeNeighbours;
 
     public GameObject characterOnNode;
 
     // sprite info
     // if the sprite type is changed somewhere else, it doesn't get updated here before the nodes get redrawn
-    public NODE_SPRITE_TYPE spriteType;
+    public NODE_SPRITE_TYPE spriteType = NODE_SPRITE_TYPE.None;
     public GameObject spriteGO;
     public NODE_SPRITE_TYPE newSpriteType;
     public Quaternion spriteRotation;
@@ -99,5 +101,6 @@ public enum NODE_SPRITE_TYPE
     Any, // used for resetting all sprites back to none
     None,
     Available,
-    Path
+    Path,
+    Attack
 }

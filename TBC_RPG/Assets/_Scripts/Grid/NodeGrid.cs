@@ -6,9 +6,6 @@ public class NodeGrid : MonoBehaviour
 {
     public static NodeGrid instance;
 
-    // debug
-    public bool onlyDisplayPathGizmos;
-
     public LayerMask unwalkableMask;
     public Vector2 gridWorldSize;
     public float nodeRadius;
@@ -18,12 +15,13 @@ public class NodeGrid : MonoBehaviour
     int gridSizeX, gridSizeY;
 
     // Object pools for the node sprites
-    public ObjectPool<GameObject> availableSpritePool, pathSpritePool;
-    [SerializeField] Transform availableSpriteParent, pathSpriteParent;
+    public ObjectPool<GameObject> availableSpritePool, pathSpritePool, attackSpritePool;
+    [SerializeField] Transform nodeSpriteParent;
 
     // Node sprites
     [SerializeField] GameObject availableNodePrefab;
     [SerializeField] GameObject pathNodePrefab;
+    [SerializeField] GameObject attackNodePrefab;
 
     void Awake()
     {
@@ -46,16 +44,22 @@ public class NodeGrid : MonoBehaviour
     void InitialisePools()
     {
         availableSpritePool = new ObjectPool<GameObject>(() => {
-            return Instantiate(availableNodePrefab, availableSpriteParent);
+            return Instantiate(availableNodePrefab, nodeSpriteParent);
         }, (obj) => obj.SetActive(true),
         (obj) => obj.SetActive(false),
-        (obj) => Destroy(obj), false, defaultCapacity: 100, 100);
+        (obj) => Destroy(obj), false, 100, 100);
 
         pathSpritePool = new ObjectPool<GameObject>(() => {
-            return Instantiate(pathNodePrefab, pathSpriteParent);
+            return Instantiate(pathNodePrefab, nodeSpriteParent);
         }, (obj) => obj.SetActive(true),
         (obj) => obj.SetActive(false),
-        (obj) => Destroy(obj), false, defaultCapacity: 10, 100);
+        (obj) => Destroy(obj), false, 10, 100);
+
+        attackSpritePool = new ObjectPool<GameObject>(() => {
+            return Instantiate(attackNodePrefab, nodeSpriteParent);
+        }, (obj) => obj.SetActive(true),
+        (obj) => obj.SetActive(false),
+        (obj) => Destroy(obj), false, 10, 100);
     }
 
     public int MaxSize
@@ -124,7 +128,7 @@ public class NodeGrid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 currentNode = NodeFromXY(x, y);
-                if (currentNode.isRedrawSprite)
+                if (currentNode != null && currentNode.isRedrawSprite)
                 {
                     UpdateSprite(currentNode);
                 }
@@ -134,7 +138,6 @@ public class NodeGrid : MonoBehaviour
 
     void UpdateSprite(Node node)
     {
-        //Destroy(node.spriteGO); // not used now due to pooling
         // first, release the old spriteGO to the correct pool
         switch (node.spriteType)
         {
@@ -146,6 +149,9 @@ public class NodeGrid : MonoBehaviour
             case NODE_SPRITE_TYPE.Path:
                 pathSpritePool.Release(node.spriteGO);
                 break;
+            case NODE_SPRITE_TYPE.Attack:
+                attackSpritePool.Release(node.spriteGO);
+                break;
         }
 
         // the grab the new sprite from the corresponding pool and set its position/rotation
@@ -154,15 +160,17 @@ public class NodeGrid : MonoBehaviour
             case NODE_SPRITE_TYPE.None:
                 break;
             case NODE_SPRITE_TYPE.Available:
-                //node.spriteGO = Instantiate(availableNodePrefab, node.worldPosition, Quaternion.identity, this.transform);
                 node.spriteGO = availableSpritePool.Get();
                 node.spriteGO.transform.position = node.worldPosition;
                 break;
             case NODE_SPRITE_TYPE.Path:
-                //node.spriteGO = Instantiate(pathNodePrefab, node.worldPosition, node.spriteRotation, this.transform);
                 node.spriteGO = pathSpritePool.Get();
                 node.spriteGO.transform.position = node.worldPosition;
                 node.spriteGO.transform.rotation = node.spriteRotation;
+                break;
+            case NODE_SPRITE_TYPE.Attack:
+                node.spriteGO = attackSpritePool.Get();
+                node.spriteGO.transform.position = node.worldPosition;
                 break;
         }
 
@@ -191,23 +199,5 @@ public class NodeGrid : MonoBehaviour
         }
 
         RedrawSprites();
-    }
-
-    public List<Node> path;
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
-
-        if (grid != null)
-        {
-            foreach (Node n in grid)
-            {
-                Gizmos.color = (n.walkable) ? Color.white : Color.red;
-                if (path != null)
-                    if (path.Contains(n))
-                        Gizmos.color = Color.black;
-                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-            }
-        }
     }
 }

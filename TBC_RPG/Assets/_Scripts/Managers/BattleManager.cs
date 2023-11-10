@@ -14,6 +14,7 @@ public class BattleManager : MonoBehaviour
     GameObject currentCharacter;
     public int currentCharacterId { get; protected set; }
     int totalCharacters = 2;
+    Ability currentAbility;
 
     public BATTLE_STATUS battleStatus { get; protected set; }
 
@@ -39,10 +40,12 @@ public class BattleManager : MonoBehaviour
         Node playerSpawnNode = NodeGrid.instance.NodeFromWorldPoint( new Vector3(-3.5f, 0f, -1.5f));
         GameObject player = Instantiate(playerPrefab, playerSpawnNode.worldPosition, Quaternion.identity, transform);
         playerSpawnNode.SetNodeCharacter(player, false);
+        player.GetComponent<CharacterMovement>().currentNode = playerSpawnNode;
 
         Node enemySpawnNode = NodeGrid.instance.NodeFromWorldPoint(new Vector3(-1.5f, 0f, -1.5f));
         GameObject enemy = Instantiate(enemyPrefab, enemySpawnNode.worldPosition, Quaternion.identity, transform);
         enemySpawnNode.SetNodeCharacter(enemy, false);
+        enemy.GetComponent<CharacterMovement>().currentNode = enemySpawnNode;
 
         // make them look at each other
         player.transform.LookAt(enemy.transform);
@@ -80,12 +83,12 @@ public class BattleManager : MonoBehaviour
                 UIManager.instance.SetInfoBarText("Select a location to move to");
                 currentCharacter.GetComponent<PlayerMovement>().ShowAvailableMoves();
                 break;
-            case BATTLE_STATUS.WaitingForTarget:
-                UIManager.instance.SetInfoBarText("Select a target to attack");
-                break;
             case BATTLE_STATUS.WaitingForAttackSelection:
                 UIManager.instance.SetInfoBarText("Select an attack to perform");
                 UIManager.instance.ShowHideAttackList(true);
+                break;
+            case BATTLE_STATUS.WaitingForTarget:
+                UIManager.instance.SetInfoBarText("Select a target to attack");
                 break;
             case BATTLE_STATUS.WaitingForAttack:
                 break;
@@ -97,7 +100,6 @@ public class BattleManager : MonoBehaviour
 
     void NextTurn()
     {
-        print("BattleManger::NextTurn");
         currentCharacterId = (currentCharacterId + 1) % totalCharacters;
         currentCharacter = characters[currentCharacterId];
         //print(currentCharacter.name + " (" + currentCharacterId + ")");
@@ -106,15 +108,20 @@ public class BattleManager : MonoBehaviour
 
     public void SelectAttack(Ability ability)
     {
-        currentCharacter.GetComponent<AttackController>().SetupAttack(ability);
-        ChangeBattleStatus(BATTLE_STATUS.WaitingForAttack);
+        //currentCharacter.GetComponent<AttackController>().SetupAttack(ability);
+        //ChangeBattleStatus(BATTLE_STATUS.WaitingForAttackSelection);
+        Node currentNode = currentCharacter.GetComponent<CharacterMovement>().currentNode;
+        currentAbility = ability;
+        Pathfinding.instance.ShowPossibleAttackNodes(currentNode, ability.MinEffectiveDistance, ability.MaxEffectiveDistance, true);
+        ChangeBattleStatus(BATTLE_STATUS.WaitingForTarget);
     }
 
     public void SelectTarget(GameObject target)
     {
         currentCharacter.transform.LookAt(target.transform);
         currentCharacter.GetComponent<AttackController>().SetTarget(target);
-        ChangeBattleStatus(BATTLE_STATUS.WaitingForAttackSelection);
+        currentCharacter.GetComponent<AttackController>().SetupAttack(currentAbility);
+        ChangeBattleStatus(BATTLE_STATUS.WaitingForAttack);
     }
 
     public void SelectAction(string action)
@@ -122,10 +129,10 @@ public class BattleManager : MonoBehaviour
         switch (action)
         {
             case "move":
-                StartCoroutine( ChangeBattleStatus(BATTLE_STATUS.WaitingForMove, 1f));
+                StartCoroutine( ChangeBattleStatus(BATTLE_STATUS.WaitingForMove, 0.1f));
                 break;
             case "attack":
-                ChangeBattleStatus(BATTLE_STATUS.WaitingForTarget);
+                ChangeBattleStatus(BATTLE_STATUS.WaitingForAttackSelection);
                 break;
         }
 

@@ -26,7 +26,6 @@ public class AttackController : MonoBehaviour
 
     void PerformAttack(GameObject attackPrefab, string animation)
     {
-        print("AttackController::PerformAttack");
         if (!attackPrefab)
             Debug.LogError("AnimationTest-PerformAttck: No attack prefab recieved");
         
@@ -54,7 +53,6 @@ public class AttackController : MonoBehaviour
 
     public void SetupDamage(Damage[] hits)
     {
-        print("AttackController::SetupDamage");
         float damageMultiplier = 1f;
         for (int d = 0; d < hits.Length; d++)
         {
@@ -88,7 +86,6 @@ public class AttackController : MonoBehaviour
 
     public void DoDamage()
     {
-        print("AttackController::DoDamage");
         StartCoroutine(target.GetComponent<Health>().ApplyHits(ProcessedHits));
     }
 

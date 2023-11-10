@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 6.440447, z: -4.745596}
+  m_FollowOffset: {x: 0, y: 11.27078, z: -8.304797}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -1442,8 +1442,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.4509993, y: -0.00000003433955, z: 0.000000017352034, w: 0.8925243}
-  m_LocalPosition: {x: 0, y: 6.440447, z: -4.7455955}
+  m_LocalRotation: {x: 0.4509991, y: -0.000000015357116, z: 0.000000007760062, w: 0.8925244}
+  m_LocalPosition: {x: 0, y: 11.270781, z: -8.304798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1619,37 +1619,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 594030100}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1194973572
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1194973573}
-  m_Layer: 0
-  m_Name: PathNodeSprites
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1194973573
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194973572}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2096735081}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1226900238
 GameObject:
@@ -2193,7 +2162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1639437377}
   m_Layer: 0
-  m_Name: AvailableNodeSprites
+  m_Name: NodeSprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2422,8 +2391,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755112848}
-  m_LocalRotation: {x: 0.4509993, y: -0.00000003433955, z: 0.000000017352034, w: 0.8925243}
-  m_LocalPosition: {x: 0, y: 6.440447, z: -4.7455955}
+  m_LocalRotation: {x: 0.4509991, y: -0.000000015357116, z: 0.000000007760062, w: 0.8925244}
+  m_LocalPosition: {x: 0, y: 11.270781, z: -8.304798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2791,7 +2760,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1639437377}
-  - {fileID: 1194973573}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2819,16 +2787,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf0539cb31e0fa4ebc611fe429220c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onlyDisplayPathGizmos: 0
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 64
   gridWorldSize: {x: 20, y: 20}
   nodeRadius: 0.5
-  availableSpriteParent: {fileID: 1639437377}
-  pathSpriteParent: {fileID: 1194973573}
+  nodeSpriteParent: {fileID: 1639437377}
   availableNodePrefab: {fileID: 9217509715024542973, guid: 71513b6ec2632794684ee39a9c155e47, type: 3}
   pathNodePrefab: {fileID: 9217509715024542973, guid: ca8b82704f172e245911fcb4b240831d, type: 3}
+  attackNodePrefab: {fileID: 9217509715024542973, guid: 291322fac3259be478193e84f34e65fd, type: 3}
 --- !u!1001 &1568705690685517849
 PrefabInstance:
   m_ObjectHideFlags: 0

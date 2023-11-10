@@ -71,15 +71,20 @@ public class Pathfinding : MonoBehaviour
         grid.ResetSprites(NODE_SPRITE_TYPE.Available, NODE_SPRITE_TYPE.None, Quaternion.identity);
     }
 
-    public void ShowPossibleMoveNodes(Node startNode, int distance)
+    public void RemovePossibleAttackNodes()
     {
+        grid.ResetSprites(NODE_SPRITE_TYPE.Attack, NODE_SPRITE_TYPE.None, Quaternion.identity);
+    }
+
+    Node[] GetNodesByDistance(Node startNode, int minDistance, int maxDistance, bool includeUnwalkable = false)
+    {
+        List<Node> nodeList = new List<Node>();
         Node endNode;
+        Node[] path;
 
-        RemovePossibleMoveNodes();
-
-        for (int x = -distance; x <= distance; x++)
+        for (int x = -maxDistance; x <= maxDistance; x++)
         {
-            for (int y = -distance; y <= distance; y++)
+            for (int y = -maxDistance; y <= maxDistance; y++)
             {
                 endNode = grid.NodeFromXY(startNode.gridX + x, startNode.gridY + y);
 
@@ -90,21 +95,54 @@ public class Pathfinding : MonoBehaviour
                 if (startNode != endNode)
                 {
                     //print(endPos);
-                    if (endNode.walkable && IsPathToTargetNodeValid(startNode, endNode))
+                    if ((endNode.walkable && IsPathToTargetNodeValid(startNode, endNode) || includeUnwalkable))
                     {
-                        if (FindPath(startNode, endNode).Length <= distance)
+                        path = FindPath(startNode, endNode, includeUnwalkable);
+                        if (path.Length <= maxDistance && path.Length >= minDistance)
                         {
-                            endNode.UpdateSprite(NODE_SPRITE_TYPE.Available, Quaternion.identity);
+                            nodeList.Add(endNode);
                         }
                     }
                 }
             }
         }
 
+        return nodeList.ToArray();
+    }
+
+    public void ShowPossibleMoveNodes(Node startNode, int distance)
+    {
+        RemovePossibleMoveNodes();
+
+        Node[] nodes = GetNodesByDistance(startNode, 0, distance, false);
+
+        foreach (Node n in nodes)
+        {
+            n.UpdateSprite(NODE_SPRITE_TYPE.Available, Quaternion.identity);
+        }
+
         OnNodeSpriteUpdated?.Invoke(this, EventArgs.Empty);
     }
 
-    public Node[] FindPath(Node startNode, Node endNode)
+    public void ShowPossibleAttackNodes(Node startNode, int minDistance, int maxDistance, bool includeEmptyNodes = false)
+    {
+        RemovePossibleAttackNodes();
+
+        // get all the nodes further away than minDistance and closer than maxDistance
+        Node[] nodes = GetNodesByDistance(startNode, minDistance, maxDistance, true);
+
+        foreach (Node n in nodes)
+        {
+            // of the node has a character on it, we can attack it.
+            // IncludeEmptyNodes is true for AOE attacks or abilities that can be performed without requiring a character
+            if(n.characterOnNode != null || includeEmptyNodes)
+                n.UpdateSprite(NODE_SPRITE_TYPE.Attack, Quaternion.identity);
+        }
+
+        OnNodeSpriteUpdated?.Invoke(this, EventArgs.Empty);
+    }
+
+    public Node[] FindPath(Node startNode, Node endNode, bool includeUnwalkable = false)
     {
         Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
         HashSet<Node> closedSet = new HashSet<Node>();
@@ -123,7 +161,7 @@ public class Pathfinding : MonoBehaviour
 
             foreach (Node neighbour in currentNode.nodeNeighbours)
             {
-                if (!neighbour.walkable || closedSet.Contains(neighbour))
+                if ((!neighbour.walkable && !includeUnwalkable) || closedSet.Contains(neighbour))
                 {
                     continue;
                 }

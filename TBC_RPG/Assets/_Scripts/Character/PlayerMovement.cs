@@ -38,7 +38,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            if(nodeUnderMouse.characterOnNode != null && nodeUnderMouse.characterOnNode.GetComponent<PlayerMovement>().characterId != characterId)
+            if(nodeUnderMouse.characterOnNode != null && 
+                nodeUnderMouse.characterOnNode.GetComponent<PlayerMovement>().characterId != characterId &&
+                nodeUnderMouse.spriteType == NODE_SPRITE_TYPE.Attack)
             {
                 BattleManager.instance.SelectTarget(nodeUnderMouse.characterOnNode);
             }
@@ -68,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     void OnMouseOverNodeChanged(object sender, System.EventArgs e)
     {
         if (nodeUnderMouse == null) return;
+        if (nodeUnderMouse.spriteType == NODE_SPRITE_TYPE.None) return;
 
         if (nodeUnderMouse.spriteType == NODE_SPRITE_TYPE.Available && cm.currentNode != nodeUnderMouse)
             Pathfinding.instance.DrawPathSprites(cm.currentNode, nodeUnderMouse);
@@ -88,26 +91,6 @@ public class PlayerMovement : MonoBehaviour
 
             if (previousNode != nodeUnderMouse)
                 OnMouseOverNodeChange?.Invoke(this, EventArgs.Empty);
-        }
-    }
-
-    void CheckForMouseClick()
-    {
-        if (Input.GetMouseButtonUp(0))
-        {
-            cm.currentNode = NodeGrid.instance.NodeFromWorldPoint(transform.position);
-            transform.position = cm.currentNode.worldPosition;
-
-            if (cm.currentNode != nodeUnderMouse)
-            {
-                Node[] path = Pathfinding.instance.FindPath(cm.currentNode, nodeUnderMouse);
-
-                if (path != null && path.Length <= cm.MovementDistance)
-                {
-                    NodeGrid.instance.ResetSprites(NODE_SPRITE_TYPE.Any, NODE_SPRITE_TYPE.None, Quaternion.identity);
-                    cm.SetPath(path);
-                }
-            }
         }
     }
 

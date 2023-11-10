@@ -33,7 +33,6 @@ public class Health : MonoBehaviour
 
     public IEnumerator ApplyHits(Damage[] hits)
     {
-        print("Health::ApplyHits");
         bool playAnimation = false;
         Color damageCol = Color.black;
 

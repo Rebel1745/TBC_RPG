@@ -23,4 +23,4 @@ MonoBehaviour:
   CritDamageMultiplier: 1.5
   WeakDamageMultiplier: 0.5
   MinEffectiveDistance: 1
-  MaxEffectiveDistance: 1
+  MaxEffectiveDistance: 5
