@@ -6,6 +6,8 @@ public class NodeGrid : MonoBehaviour
 {
     public static NodeGrid instance;
 
+    public Transform battleArea;
+
     public LayerMask unwalkableMask;
     public Vector2 gridWorldSize;
     public float nodeRadius;
@@ -70,7 +72,7 @@ public class NodeGrid : MonoBehaviour
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
+        Vector3 worldBottomLeft = (transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2) + battleArea.position;
 
         for (int x = 0; x < gridSizeX; x++)
         {
@@ -104,6 +106,7 @@ public class NodeGrid : MonoBehaviour
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
+        worldPosition -= battleArea.position;
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
         float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
         percentX = Mathf.Clamp01(percentX);
@@ -199,5 +202,20 @@ public class NodeGrid : MonoBehaviour
         }
 
         RedrawSprites();
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(battleArea.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+
+        if (grid == null)
+            return;
+
+        foreach (Node n in grid)
+        {
+            Gizmos.color = (n.walkable) ? Color.white : Color.red;
+            Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+        }
     }
 }

@@ -37,12 +37,12 @@ public class BattleManager : MonoBehaviour
         UIManager.instance.ShowHideInfoBar(true);
 
         // spawn the characters and set the nodes they start on as unwalkable
-        Node playerSpawnNode = NodeGrid.instance.NodeFromWorldPoint( new Vector3(-3.5f, 0f, -1.5f));
+        Node playerSpawnNode = NodeGrid.instance.NodeFromXY( 5, 5);
         GameObject player = Instantiate(playerPrefab, playerSpawnNode.worldPosition, Quaternion.identity, transform);
         playerSpawnNode.SetNodeCharacter(player, false);
         player.GetComponent<CharacterMovement>().currentNode = playerSpawnNode;
 
-        Node enemySpawnNode = NodeGrid.instance.NodeFromWorldPoint(new Vector3(-1.5f, 0f, -1.5f));
+        Node enemySpawnNode = NodeGrid.instance.NodeFromXY(10,5);
         GameObject enemy = Instantiate(enemyPrefab, enemySpawnNode.worldPosition, Quaternion.identity, transform);
         enemySpawnNode.SetNodeCharacter(enemy, false);
         enemy.GetComponent<CharacterMovement>().currentNode = enemySpawnNode;
@@ -100,6 +100,7 @@ public class BattleManager : MonoBehaviour
 
     void NextTurn()
     {
+        Pathfinding.instance.RemovePossibleAttackNodes();
         currentCharacterId = (currentCharacterId + 1) % totalCharacters;
         currentCharacter = characters[currentCharacterId];
         //print(currentCharacter.name + " (" + currentCharacterId + ")");
