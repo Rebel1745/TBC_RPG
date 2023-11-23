@@ -49,8 +49,8 @@ public class CameraSystem : MonoBehaviour
 
         HandleCameraRotation();
 
-        //HandleCameraZoom_FieldOfView();
-        //HandleCameraZoom_MoveForward();
+        HandleCameraZoom_FieldOfView();
+        HandleCameraZoom_MoveForward();
         HandleCameraZoom_LowerY();
     }
 
@@ -151,6 +151,9 @@ public class CameraSystem : MonoBehaviour
 
     private void HandleCameraZoom_MoveForward()
     {
+        if (!Input.GetKey(KeyCode.LeftAlt))
+            return;
+
         Vector3 zoomDir = followOffset.normalized;
         
         if (Input.mouseScrollDelta.y > 0)
@@ -178,6 +181,9 @@ public class CameraSystem : MonoBehaviour
 
     private void HandleCameraZoom_LowerY()
     {
+        if (!Input.GetKey(KeyCode.LeftControl))
+            return;
+
         if (Input.mouseScrollDelta.y > 0)
         {
             followOffset.y -= zoomAmount;
