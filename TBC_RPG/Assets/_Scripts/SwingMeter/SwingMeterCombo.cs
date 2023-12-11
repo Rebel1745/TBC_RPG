@@ -122,9 +122,7 @@ public class SwingMeterCombo : SwingMeter {
     DAMAGE_TYPE CheckHitType(Color stoppingColor, Transform panel)
     {
         DAMAGE_TYPE dt = DAMAGE_TYPE.Miss;
-
-        // textToAdd not used since DAMAGE_TYPE has been implemented
-        //string textToAdd = stoppingColor.ToString();
+        
         bool wrongButton = false;
         if (swingNo > 0)
         {
@@ -134,12 +132,10 @@ public class SwingMeterCombo : SwingMeter {
                 if (keyPressed == keysToPress[swingNo - 1])
                 {
                     dt = DAMAGE_TYPE.Critical;
-                    //textToAdd = "crit";
                 }
                 else
                 {
                     dt = DAMAGE_TYPE.Miss;
-                    //textToAdd = "miss";
                     wrongButton = true;
                     swingNo = noOfSwings;
                 }
@@ -149,12 +145,10 @@ public class SwingMeterCombo : SwingMeter {
                 if (keyPressed == keysToPress[swingNo - 1])
                 {
                     dt = DAMAGE_TYPE.Normal;
-                    //textToAdd = "normal";
                 }
                 else
                 {
                     dt = DAMAGE_TYPE.Miss;
-                    //textToAdd = "miss";
                     wrongButton = true;
                     swingNo = noOfSwings;
                 }
@@ -164,12 +158,10 @@ public class SwingMeterCombo : SwingMeter {
                 if (keyPressed == keysToPress[swingNo - 1])
                 {
                     dt = DAMAGE_TYPE.Weak;
-                    //textToAdd = "weak";
                 }
                 else
                 {
                     dt = DAMAGE_TYPE.Miss;
-                    //textToAdd = "miss";
                     wrongButton = true;
                     swingNo = noOfSwings;
                 }
@@ -189,7 +181,6 @@ public class SwingMeterCombo : SwingMeter {
         {
             panel.gameObject.GetComponent<Image>().color = Color.black;
             dt = DAMAGE_TYPE.Miss;
-            //textToAdd = "miss";
         }
 
         return dt;

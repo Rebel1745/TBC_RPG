@@ -569,7 +569,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swingMeter: {fileID: 114994115220174694}
-  meterImage: {fileID: 2800000, guid: 45b9daffa121ed34684b8ce54e6525a8, type: 3}
   Swinger: {fileID: 0}
   canPress: 1
   pressAgainThreshold: 0
@@ -600,6 +599,21 @@ MonoBehaviour:
   - {fileID: 224245738523069520}
   currentPanel: {fileID: 0}
   currentPanelSpawn: {fileID: 0}
+  MeterImage: {fileID: 114366500961001834}
+  NormalHitColour: {r: 0, g: 0, b: 1, a: 1}
+  CriticalHitColour: {r: 0, g: 1, b: 0, a: 1}
+  WeakHitColour: {r: 1, g: 0, b: 0, a: 1}
+  MissColour: {r: 0, g: 0, b: 0, a: 1}
+  KeypressPanelSpawnPrefab: {fileID: 3346157657935530668, guid: 7afc6e013237ffe4a9efbfbcbec633d7, type: 3}
+  KeypressPanelPrefab: {fileID: 1329882431989887986, guid: eef652dbf2fd6794d99806ed06b48987, type: 3}
+  KeypressPanelYOffset: 25
+  hitTypesAndPercentages:
+  - HitType: 0
+    Percentage: 75
+  - HitType: 1
+    Percentage: 5
+  - HitType: 2
+    Percentage: 20
 --- !u!1 &1567756040863994
 GameObject:
   m_ObjectHideFlags: 0

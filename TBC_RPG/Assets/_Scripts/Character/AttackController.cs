@@ -27,14 +27,14 @@ public class AttackController : MonoBehaviour
     void PerformAttack(GameObject attackPrefab, string animation)
     {
         if (!attackPrefab)
-            Debug.LogError("AnimationTest-PerformAttck: No attack prefab recieved");
+            Debug.LogError("AnimationTest-PerformAttack: No attack prefab recieved");
         
         //UIManager.instance.ShowHideInfoBar(false);
         UIManager.instance.ShowHideAttackList(false);
 
         GameObject go = Instantiate(attackPrefab, attackParentCanvas.transform);
 
-        // I HATE THIS CODE. THERE MUST BE A BETTER WAY
+        // I HATE THIS CODE. THERE MUST BE A BETTER WAY (Use an interface)
         if (go.GetComponent<SwingMeterCombo>() != null)
             go.GetComponent<SwingMeterCombo>().Swinger = this.gameObject;
         if (go.GetComponent<SwingMeterMatch>() != null)
@@ -43,12 +43,9 @@ public class AttackController : MonoBehaviour
             go.GetComponent<SwingMeterMash>().Swinger = this.gameObject;
     }
 
-    public void AttackAgain()
+    public void PlayAbilityAnimation()
     {
         anim.Play(currentAbility.AnimationName);
-        //UIManager.instance.ShowHideInfoBar(true);
-        //UIManager.instance.ShowHideAttackList(true);
-        //UIManager.instance.SetInfoBarText("Time to attack again");
     }
 
     public void SetupDamage(Damage[] hits)
